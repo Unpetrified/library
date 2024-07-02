@@ -1,0 +1,130 @@
+body {
+    margin: 0;
+    --book-width: 280px;
+}
+
+.blanket {
+    background-color: black;
+    width: 100vw;
+    height: 100vh;
+    opacity: 0.5;
+    position: absolute;
+    z-index: 1;
+    display: none;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2E2A26;
+    padding: 10px 50px;
+    color: white;
+}
+
+button,
+.button {
+    background-color: #E9951E;
+    color: white;
+    padding: 10px 40px;
+    border: none;
+    font-weight: bolder;
+    border-radius: 25px;
+    transition: 200ms ease-in-out;
+}
+
+button:hover,
+.button:hover {
+    opacity: 0.8;
+    scale: 1.1;
+}
+
+.books {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, var(--book-width));
+    padding: 10px 40px;
+    justify-content: space-evenly;
+    row-gap: 20px;
+}
+
+.book {
+    position: relative;
+}
+
+.book img {
+    width: var(--book-width);
+}
+
+.book-title {
+    position: absolute;
+    top: 6px;
+    right: 50px;
+    width: 70%;
+    height: 52px;
+    background-color: #242422;
+    color: #e17f00;
+    font-weight: bolder;
+    font-size: large;
+    text-align: center;
+}
+
+.book-author {
+    position: absolute;
+    bottom: 45px;
+    left: 50px;
+    background-color: transparent;
+    color: #e17f00;
+}
+
+.book-read-status {
+    background-color: rgb(218, 161, 170);
+    color: rgb(255, 0, 43);
+    position: absolute;
+    top: -28px;
+    right: 0;
+    font-size: 12px;
+    font-weight: lighter;
+}
+
+.book button {
+    background-color: #222221;
+}
+
+form {
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translateY(-50%) translateX(50%);
+    background-color: wheat;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 60px 100px;
+    border-radius: 15px;
+    z-index: 2;
+    display: none;
+}
+
+form svg {
+    width: 20px;
+    height: auto;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    cursor: pointer;
+}
+
+form svg:hover {
+    transform: scale(1.1);
+}
+
+input {
+    border: none;
+    background-color: rgb(235, 235, 235);
+}
+
+fieldset {
+    all: unset;
+    display: flex;
+    align-items: center;
+}
