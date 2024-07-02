@@ -6,7 +6,7 @@ body {
 .blanket {
     background-color: black;
     width: 100vw;
-    height: 100vh;
+    height: 1000vh;
     opacity: 0.5;
     position: absolute;
     z-index: 1;
@@ -127,4 +127,12 @@ fieldset {
     all: unset;
     display: flex;
     align-items: center;
+}
+
+.show {
+    display: flex;
+}
+
+.no-overflow {
+    overflow: hidden;
 }

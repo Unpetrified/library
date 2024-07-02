@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./style.css">
-    <script src="./script.js"></script>
+    <script src="./script.js" defer></script>
 </head>
 <body>
 
@@ -60,13 +60,6 @@
             <h6 class="book-read-status">Read</h6>
             <button>Read</button>
         </div>
-        <div class="book">
-            <img src="./generic book cover.jpg" alt="generic book cover" width="300px">
-            <h4 class="book-title">Book Title Goes Here</h4>
-            <h5 class="book-author">Book Author Here</h5>
-            <h6 class="book-read-status">Read</h6>
-            <button>Read</button>
-        </div>
             
     </section>
 
@@ -74,13 +67,13 @@
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>close</title><path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" /></svg>
 
         <label for="title">Title</label>
-        <input type="text" name="title" id="title">
+        <input type="text" name="title" id="title" required>
 
         <label for="Author">Author</label>
-        <input type="text" name="Author" id="author">
+        <input type="text" name="Author" id="author" required>
 
         <label for="pages">Number of Pages</label>
-        <input type="number" name="pages" id="pages">
+        <input type="number" name="pages" id="pages" required>
 
         <fieldset>
             <label for="read">Have you read this book?</label>
