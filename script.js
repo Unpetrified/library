@@ -1,9 +1,11 @@
+let library
+
 function Book(title, author, pages, read) {
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.read = read;
-
+    this.details = [this.title, this.author, this.pages, this.read];
     this.info = function () {
 
         let read_status;
@@ -13,34 +15,93 @@ function Book(title, author, pages, read) {
     }
 }
 
-const harryPotter = new Book("Harry Potter", "J.K Rowling", 3407, true);
-const aSongOfIceAndFire = new Book("A Song Of Ice And Fire", "George R.R Martin", 5178, true);
-const ninteenEightyFour = new Book("1984", "George Orwell", 394, false);
-
 const new_book_button = document.querySelector("header button"),
-      blanket = document.querySelector(".blanket"),
-      books = document.querySelector(".books"),
-      body = document.querySelector("body"),
-      form = document.querySelector("form"),
-      close_button = document.querySelector("form svg");
+    blanket = document.querySelector(".blanket"),
+    books = document.querySelector(".books"),
+    body = document.querySelector("body"),
+    form = document.querySelector("form"),
+    read_buttons = document.querySelectorAll(".book button"),
+    close_button = document.querySelector("form svg");
 
-new_book_button.addEventListener("click", () => {    
-    toggleProperties();
-});
+new_book_button.addEventListener("click", toggleProperties);
 
-close_button.addEventListener("click", () => {
-    toggleProperties();
-})
+close_button.addEventListener("click", toggleProperties);
+
+blanket.addEventListener("click", toggleProperties);
 
 form.addEventListener("submit", (e) => {
     e.preventDefault();
 
+    let data = [form.elements["title"].value, form.elements["author"].value, form.elements["pages"].value, form.elements["read"].checked];
+
+    let newBook = Book(data[0], data[1], data[2], data[3]);
+    createNewBook(data);
+
+    form.reset();
 
     toggleProperties();
-})
+});
+
+read_buttons.forEach(read_button => {
+    read_button.addEventListener("click", (e) => {
+        let read_statement = e.target.previousElementSibling;
+        read_statement.textContent === "Read" ? read_statement.textContent = "Not Read" : read_statement.textContent = "Read";
+    });
+});
 
 function toggleProperties() {
     blanket.classList.toggle("show");
     form.classList.toggle("show");
     body.classList.toggle("no-overflow");
 }
+
+function createNewBook(data) {
+    let img = document.createElement("img");
+    img.setAttribute("src", "./generic book cover.jpg");
+    img.setAttribute("width", "300px");
+    img.setAttribute("alt", "generic book cover");
+
+    let title = document.createElement("h4");
+    title.classList.add("book-title");
+    title.textContent = data[0];
+
+    let author = document.createElement("h5");
+    author.classList.add("book-author");
+    author.textContent = data[1];
+
+    let read_status = document.createElement("h6");
+    read_status.classList.add("book-read-status");
+    data[3] ? read_status.textContent = "Read" : read_status.textContent = "Not Read";
+
+    let button = document.createElement("button");
+    button.textContent = "Read";
+
+    let page_number = document.createElement("span");
+    page_number.classList.add("page-number");
+    page_number.textContent = `${data[2]} pages`;
+
+    let div = document.createElement("div");
+    div.append(button);
+    div.append(page_number);
+
+    let book_data = [img, title, author, read_status, div];
+
+    let book = document.createElement("div");
+    book.classList.add("book");
+    
+    book_data.forEach(dt => {
+        book.append(dt);
+    });
+
+    books.append(book);
+
+}
+
+const harryPotter = new Book("Harry Potter", "J.K Rowling", 3407, true);
+createNewBook(harryPotter.details);
+
+const aSongOfIceAndFire = new Book("A Song Of Ice And Fire", "George R.R Martin", 5178, true);
+createNewBook(aSongOfIceAndFire.details);
+
+const ninteenEightyFour = new Book("1984", "George Orwell", 394, false);
+createNewBook(ninteenEightyFour.details);

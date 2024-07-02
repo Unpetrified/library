@@ -57,9 +57,9 @@ button:hover,
 
 .book-title {
     position: absolute;
-    top: 6px;
-    right: 50px;
-    width: 70%;
+    top: 5px;
+    right: 0px;
+    width: 100%;
     height: 52px;
     background-color: #242422;
     color: #e17f00;
@@ -78,7 +78,8 @@ button:hover,
 
 .book-read-status {
     background-color: rgb(218, 161, 170);
-    color: rgb(255, 0, 43);
+    color: white;
+    padding: 4px 10px;
     position: absolute;
     top: -28px;
     right: 0;
@@ -88,6 +89,13 @@ button:hover,
 
 .book button {
     background-color: #222221;
+}
+
+.book div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
 
 form {
