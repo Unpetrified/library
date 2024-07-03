@@ -1,5 +1,3 @@
-let library
-
 function Book(title, author, pages, read) {
     this.title = title;
     this.author = author;
@@ -20,7 +18,6 @@ const new_book_button = document.querySelector("header button"),
     books = document.querySelector(".books"),
     body = document.querySelector("body"),
     form = document.querySelector("form"),
-    read_buttons = document.querySelectorAll(".book button"),
     close_button = document.querySelector("form svg");
 
 new_book_button.addEventListener("click", toggleProperties);
@@ -34,19 +31,11 @@ form.addEventListener("submit", (e) => {
 
     let data = [form.elements["title"].value, form.elements["author"].value, form.elements["pages"].value, form.elements["read"].checked];
 
-    let newBook = Book(data[0], data[1], data[2], data[3]);
     createNewBook(data);
 
     form.reset();
 
     toggleProperties();
-});
-
-read_buttons.forEach(read_button => {
-    read_button.addEventListener("click", (e) => {
-        let read_statement = e.target.previousElementSibling;
-        read_statement.textContent === "Read" ? read_statement.textContent = "Not Read" : read_statement.textContent = "Read";
-    });
 });
 
 function toggleProperties() {
@@ -73,15 +62,27 @@ function createNewBook(data) {
     read_status.classList.add("book-read-status");
     data[3] ? read_status.textContent = "Read" : read_status.textContent = "Not Read";
 
-    let button = document.createElement("button");
-    button.textContent = "Read";
+    let read_btn = document.createElement("button");
+    read_btn.classList.add("read-btn");
+    read_btn.textContent = "Read"; 
+
+    read_btn.addEventListener("click", setReadStatus);
+    
+    let delete_btn = document.createElement("button");
+    delete_btn.classList.add("delete-btn");
+    delete_btn.textContent = "Remove";    
+
+    delete_btn.addEventListener("click", (e) => {
+        e.target.parentNode.parentNode.remove();
+    })
 
     let page_number = document.createElement("span");
     page_number.classList.add("page-number");
     page_number.textContent = `${data[2]} pages`;
 
     let div = document.createElement("div");
-    div.append(button);
+    div.append(read_btn);
+    div.append(delete_btn);
     div.append(page_number);
 
     let book_data = [img, title, author, read_status, div];
@@ -97,11 +98,8 @@ function createNewBook(data) {
 
 }
 
-const harryPotter = new Book("Harry Potter", "J.K Rowling", 3407, true);
-createNewBook(harryPotter.details);
-
-const aSongOfIceAndFire = new Book("A Song Of Ice And Fire", "George R.R Martin", 5178, true);
-createNewBook(aSongOfIceAndFire.details);
-
-const ninteenEightyFour = new Book("1984", "George Orwell", 394, false);
-createNewBook(ninteenEightyFour.details);
+function setReadStatus(e) {
+    let read_statement = e.target.parentNode.previousElementSibling;
+    
+    read_statement.textContent === "Read" ? read_statement.textContent = "Not Read" : read_statement.textContent = "Read";
+}

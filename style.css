@@ -87,15 +87,24 @@ button:hover,
     font-weight: lighter;
 }
 
-.book button {
-    background-color: #222221;
-}
-
 .book div {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     align-items: center;
+    gap: 10px;
+}
+
+.delete-btn {
+    background-color: #222221;
+}
+
+.read-btn, .delete-btn {
+    padding: 10px 20px;
+    margin: 0;
+}
+
+.page-number {
+    margin-left: auto;
 }
 
 form {
