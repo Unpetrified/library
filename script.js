@@ -1,3 +1,5 @@
+const myLibrary = new Map();
+
 function Book(title, author, pages, read) {
     this.title = title;
     this.author = author;
@@ -10,6 +12,10 @@ function Book(title, author, pages, read) {
         this.read ? read_status = "you have read this book" : read_status = "not read yet";
 
         return `${this.title} by ${this.author}, ${pages} pages, ${read_status}`
+    }
+
+    this.toggleReadStatus = function () {
+        this.read = !this.read;
     }
 }
 
@@ -29,9 +35,11 @@ blanket.addEventListener("click", toggleProperties);
 form.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    let data = [form.elements["title"].value, form.elements["author"].value, form.elements["pages"].value, form.elements["read"].checked];
+    let newBook = new Book(form.elements["title"].value, form.elements["author"].value, form.elements["pages"].value, form.elements["read"].checked);
 
-    createNewBook(data);
+    myLibrary.set(myLibrary.size + 1, newBook);
+
+    createNewBook(newBook.details);
 
     form.reset();
 
@@ -72,15 +80,14 @@ function createNewBook(data) {
     delete_btn.classList.add("delete-btn");
     delete_btn.textContent = "Remove";    
 
-    delete_btn.addEventListener("click", (e) => {
-        e.target.parentNode.parentNode.remove();
-    })
+    delete_btn.addEventListener("click", removeBook)
 
     let page_number = document.createElement("span");
     page_number.classList.add("page-number");
     page_number.textContent = `${data[2]} pages`;
 
     let div = document.createElement("div");
+    div.setAttribute("data-index", myLibrary.size);
     div.append(read_btn);
     div.append(delete_btn);
     div.append(page_number);
@@ -90,6 +97,7 @@ function createNewBook(data) {
     let book = document.createElement("div");
     book.classList.add("book");
     
+    // create the book node using the data provided
     book_data.forEach(dt => {
         book.append(dt);
     });
@@ -99,7 +107,22 @@ function createNewBook(data) {
 }
 
 function setReadStatus(e) {
-    let read_statement = e.target.parentNode.previousElementSibling;
-    
+
+    // update the myLibrary array
+    let index = Number.parseInt(e.target.parentNode.getAttribute("data-index"));
+    myLibrary.get(index).toggleReadStatus();
+
+    // update the ui
+    let read_statement = e.target.parentNode.previousElementSibling;    
     read_statement.textContent === "Read" ? read_statement.textContent = "Not Read" : read_statement.textContent = "Read";
+}
+
+function removeBook(e) {
+
+    // remove the book from the myLibrary array
+    let index = Number.parseInt(e.target.parentNode.getAttribute("data-index"));
+    myLibrary.delete(index);
+    
+    // update the ui
+    e.target.parentNode.parentNode.remove();
 }
