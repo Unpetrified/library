@@ -1,20 +1,25 @@
 const myLibrary = new Map();
 
-function Book(title, author, pages, read) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
-    this.details = [this.title, this.author, this.pages, this.read];
-    this.info = function () {
+class Book {
+    constructor(title, author, pages, read) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;
+    }
 
+    details() {
+        return [this.title, this.author, this.pages, this.read]
+    }
+
+    info = () => {
         let read_status;
         this.read ? read_status = "you have read this book" : read_status = "not read yet";
 
         return `${this.title} by ${this.author}, ${pages} pages, ${read_status}`
-    }
-
-    this.toggleReadStatus = function () {
+    };
+    
+    toggleReadStatus() {
         this.read = !this.read;
     }
 }
@@ -38,8 +43,9 @@ form.addEventListener("submit", (e) => {
     let newBook = new Book(form.elements["title"].value, form.elements["author"].value, form.elements["pages"].value, form.elements["read"].checked);
 
     myLibrary.set(myLibrary.size + 1, newBook);
+    console.log(newBook.info());
 
-    createNewBook(newBook.details);
+    createNewBook(newBook.details());
 
     form.reset();
 
